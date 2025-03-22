@@ -17,13 +17,14 @@ namespace Demo.BusinessLogic.DataTransferObjects
         //    CreatedOn = DateOnly.FromDateTime(department.CreatedOn);
         //}
         public int Id { get; set; } // PK
+        public string Name { get; set; } = string.Empty;
+        public string Code { get; set; } = string.Empty;
+        public string? Description { get; set; }
         public int CreatedBy { get; set; } // User Id
         public DateOnly CreatedOn { get; set; }
         public int LastModifiedBy { get; set; } 
         public DateOnly LastModifiedOn { get; set; }
         public bool IsDeleted { get; set; } 
-        public string Name { get; set; } = string.Empty;
-        public string Code { get; set; } = string.Empty;
-        public string? Description { get; set; }
+        
     }
 }
