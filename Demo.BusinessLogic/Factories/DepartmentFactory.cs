@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Demo.BusinessLogic.DataTransferObjects;
-using Demo.DataAccess.Models;
+using Demo.DataAccess.Models.DepartmentModel;
 
 namespace Demo.BusinessLogic.Factories
 {
