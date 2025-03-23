@@ -28,7 +28,12 @@ namespace Demo.BusinessLogic.Factories
             {
                 Id = department.Id,
                 Name = department.Name ,
-                CreatedOn = DateOnly.FromDateTime(department.CreatedOn)
+                Code = department.Code,
+                Description = department.Description,
+                CreatedOn = DateOnly.FromDateTime(department.CreatedOn),
+                CreatedBy = department.CreatedBy,
+                LastModifiedOn = DateOnly.FromDateTime(department.LastModifiedOn),
+                LastModifiedBy = department.LastModifiedBy
             };
         }
 
