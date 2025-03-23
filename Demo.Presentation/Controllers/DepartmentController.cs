@@ -1,12 +1,12 @@
-﻿using System.Net.NetworkInformation;
-using Demo.BusinessLogic.DataTransferObjects;
+﻿using Demo.BusinessLogic.DataTransferObjects.DepartmentDtos;
 using Demo.BusinessLogic.Services;
+using Demo.BusinessLogic.Services.DepartmentServices;
 using Demo.Presentation.ViwModels.DepartmentViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Presentation.Controllers
 {
-    public class DepartmentController(IDepartmentService _departmentService , 
+    public class DepartmentController(IDepartmentServices _departmentService , 
                                       ILogger<DepartmentController> _logger ,
                                       IWebHostEnvironment _environment) : Controller
     {

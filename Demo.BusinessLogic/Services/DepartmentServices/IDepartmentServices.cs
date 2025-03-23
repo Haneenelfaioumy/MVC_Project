@@ -1,8 +1,8 @@
-﻿using Demo.BusinessLogic.DataTransferObjects;
+﻿using Demo.BusinessLogic.DataTransferObjects.DepartmentDtos;
 
-namespace Demo.BusinessLogic.Services
+namespace Demo.BusinessLogic.Services.DepartmentServices
 {
-    public interface IDepartmentService
+    public interface IDepartmentServices
     {
         int AddDepartment(CreatedDepartmentDto departmentDto);
         bool DeleteDepartment(int id);
