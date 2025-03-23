@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Demo.DataAccess.Data.Contexts;
+using Demo.DataAccess.Models.DepartmentModel;
+using Demo.DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Demo.DataAccess.Repositories
@@ -52,7 +54,7 @@ namespace Demo.DataAccess.Repositories
             return _dbContext.SaveChanges();
         }
 
-        // Insert
+        // Insert | Create | Add
         public int Add(Department department)
         {
             _dbContext.Departments.Add(department);
