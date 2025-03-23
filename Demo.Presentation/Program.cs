@@ -1,8 +1,10 @@
-using Demo.BusinessLogic.Services;
+using Demo.BusinessLogic.Services.Classes;
+using Demo.BusinessLogic.Services.DepartmentServices;
+using Demo.BusinessLogic.Services.EmployeeServices;
 using Demo.DataAccess.Data.Contexts;
-using Demo.DataAccess.Repositories;
+using Demo.DataAccess.Repositories.Classes;
+using Demo.DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace Demo.Presentation
 {
@@ -26,7 +28,8 @@ namespace Demo.Presentation
 
             //builder.Services.AddScoped<DepartmentRepository>();
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+            builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
+            builder.Services.AddScoped<IEmployeeServices, EmployeeServices>();
 
             #endregion
 
