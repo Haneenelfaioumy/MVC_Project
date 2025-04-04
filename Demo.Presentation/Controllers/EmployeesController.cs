@@ -7,9 +7,8 @@ namespace Demo.Presentation.Controllers
     {
         public IActionResult Index()
         {
-            var employees = _employeeServices.GetAllEmployees();
-
-            return View(employees);
+            var Employees = _employeeServices.GetAllEmployees();
+            return View(Employees);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Demo.Presentation
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            //builder.Services.AddScoped<IEmployeeServices, EmployeeServices>();
+            builder.Services.AddScoped<IEmployeeServices, EmployeeServices>();
             //builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
 
