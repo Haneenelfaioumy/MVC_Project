@@ -1,7 +1,7 @@
 using Demo.BusinessLogic.Services.Classes;
 using Demo.BusinessLogic.Services.DepartmentServices;
 using Demo.BusinessLogic.Services.EmployeeServices;
-using Demo.DataAccess.Data.Contexts;
+using Demo.DataAccess.Data.DbContexts;
 using Demo.DataAccess.Repositories.Classes;
 using Demo.DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;

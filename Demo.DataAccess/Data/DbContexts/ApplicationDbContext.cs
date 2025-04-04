@@ -4,7 +4,7 @@ using Demo.DataAccess.Models.DepartmentModel;
 using Demo.DataAccess.Models.EmployeeModel;
 using Microsoft.EntityFrameworkCore;
 
-namespace Demo.DataAccess.Data.Contexts
+namespace Demo.DataAccess.Data.DbContexts
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
     {

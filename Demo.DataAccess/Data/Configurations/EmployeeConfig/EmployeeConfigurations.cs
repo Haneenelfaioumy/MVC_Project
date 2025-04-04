@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Demo.DataAccess.Models.Shared.Enums;
 
-namespace Demo.DataAccess.Data.Configurations
+namespace Demo.DataAccess.Data.Configurations.EmployeeConfig
 {
     public class EmployeeConfigurations : BaseEntityConfigurations<Employee> , 
                                           IEntityTypeConfiguration<Employee>
