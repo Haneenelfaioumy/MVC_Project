@@ -17,11 +17,43 @@ namespace Demo.BusinessLogic.Services.Classes
         // Get All Employees
         public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false)
         {
-            var Employees = _employeeRepository.GetAll(WithTracking);
+            #region IEnumerable VS IQueryable
+
+            //var Result = _employeeRepository.GetIEnumerable()
+            //                                    .Where(E => E.IsDeleted != true)
+            //                                    .Select(E => new EmployeeDto()
+            //                                    {
+            //                                        Id = E.Id,
+            //                                        Name = E.Name,
+            //                                        Age = E.Age
+            //                                    });
+            //return Result.ToList(); 
+
+            //var Result = _employeeRepository.GetIQueryable()
+            //                                    .Where(E => E.IsDeleted != true)
+            //                                    .Select(E => new EmployeeDto()
+            //                                    {
+            //                                        Id = E.Id,
+            //                                        Name = E.Name,
+            //                                        Age = E.Age
+            //                                    });
+            //return Result.ToList();
+
+            #endregion
+
+            //var Employees = _employeeRepository.GetAll(WithTracking);
+            var Employees = _employeeRepository.GetAll(E => new EmployeeDto()
+            {
+                Id = E.Id,
+                Name = E.Name,
+                Salary = E.Salary,
+                Age = E.Age
+            }).Where(E => E.Age > 25);
             // Src = Employee
             // Dest = EmployeeDto
-            var employeesDto = _mapper.Map<IEnumerable<Employee> , IEnumerable<EmployeeDto>>(Employees);
-            return employeesDto;
+            //var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(Employees);
+            //return employeesDto;
+            return Employees;
         }
 
         // Get Employee By Id
