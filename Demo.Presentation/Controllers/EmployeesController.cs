@@ -1,4 +1,4 @@
-﻿using Demo.BusinessLogic.Services.EmployeeServices;
+﻿using Demo.BusinessLogic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Presentation.Controllers

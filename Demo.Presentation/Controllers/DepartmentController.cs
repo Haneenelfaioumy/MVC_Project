@@ -1,6 +1,6 @@
 ﻿using Demo.BusinessLogic.DataTransferObjects.DepartmentDtos;
 using Demo.BusinessLogic.Services;
-using Demo.BusinessLogic.Services.DepartmentServices;
+using Demo.BusinessLogic.Services.Interfaces;
 using Demo.Presentation.ViwModels.DepartmentViewModel;
 using Microsoft.AspNetCore.Mvc;
 

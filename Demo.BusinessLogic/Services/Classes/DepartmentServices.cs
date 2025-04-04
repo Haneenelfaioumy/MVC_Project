@@ -1,6 +1,6 @@
 ﻿using Demo.BusinessLogic.DataTransferObjects.DepartmentDtos;
 using Demo.BusinessLogic.Factories;
-using Demo.BusinessLogic.Services.DepartmentServices;
+using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Repositories.Interfaces;
 
 namespace Demo.BusinessLogic.Services.Classes
