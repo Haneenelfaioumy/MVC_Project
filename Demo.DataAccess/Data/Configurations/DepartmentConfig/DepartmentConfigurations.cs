@@ -1,6 +1,6 @@
 ﻿using Demo.DataAccess.Models.DepartmentModel;
 
-namespace Demo.DataAccess.Data.Configurations
+namespace Demo.DataAccess.Data.Configurations.DepartmentConfig
 {
     class DepartmentConfigurations : BaseEntityConfigurations<Department> , 
                                      IEntityTypeConfiguration<Department>

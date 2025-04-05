@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Demo.DataAccess.Data.Contexts;
+using Demo.DataAccess.Data.DbContexts;
 using Demo.DataAccess.Models.DepartmentModel;
 using Demo.DataAccess.Models.Shared;
 using Demo.DataAccess.Repositories.Interfaces;
@@ -19,8 +20,10 @@ namespace Demo.DataAccess.Repositories.Classes
         public IEnumerable<TEntity> GetAll(bool WithTracking = false)
         {
             if (WithTracking)
+                //return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true).ToList();
                 return _dbContext.Set<TEntity>().ToList();
             else
+                //return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true).AsNoTracking().ToList();
                 return _dbContext.Set<TEntity>().AsNoTracking().ToList();
         }
 
@@ -47,5 +50,12 @@ namespace Demo.DataAccess.Repositories.Classes
             _dbContext.Set<TEntity>().Add(entity);
             return _dbContext.SaveChanges();
         }
+
+        public IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> selector)
+        {
+            return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true)
+                             .Select(selector).ToList();
+        }
+
     }
 }
