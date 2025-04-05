@@ -57,14 +57,5 @@ namespace Demo.DataAccess.Repositories.Classes
                              .Select(selector).ToList();
         }
 
-        //public IEnumerable<TEntity> IGenericRepository<TEntity>.GetIEnumerable()
-        //{
-        //    return _dbContext.Set<TEntity>();
-        //}
-
-        //public IQueryable<TEntity> IGenericRepository<TEntity>.GetIQueryable()
-        //{
-        //    return _dbContext.Set<TEntity>();
-        //}
     }
 }

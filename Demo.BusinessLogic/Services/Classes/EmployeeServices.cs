@@ -17,30 +17,6 @@ namespace Demo.BusinessLogic.Services.Classes
         // Get All Employees
         public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false)
         {
-            #region IEnumerable VS IQueryable
-
-            //var Result = _employeeRepository.GetIEnumerable()
-            //                                    .Where(E => E.IsDeleted != true)
-            //                                    .Select(E => new EmployeeDto()
-            //                                    {
-            //                                        Id = E.Id,
-            //                                        Name = E.Name,
-            //                                        Age = E.Age
-            //                                    });
-            //return Result.ToList(); 
-
-            //var Result = _employeeRepository.GetIQueryable()
-            //                                    .Where(E => E.IsDeleted != true)
-            //                                    .Select(E => new EmployeeDto()
-            //                                    {
-            //                                        Id = E.Id,
-            //                                        Name = E.Name,
-            //                                        Age = E.Age
-            //                                    });
-            //return Result.ToList();
-
-            #endregion
-
             //var Employees = _employeeRepository.GetAll(WithTracking);
             var Employees = _employeeRepository.GetAll(E => new EmployeeDto()
             {

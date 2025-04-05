@@ -17,7 +17,5 @@ namespace Demo.DataAccess.Repositories.Interfaces
         int Remove(TEntity entity);
         int Update(TEntity entity);
 
-        //IEnumerable<TEntity> GetIEnumerable();
-        //IQueryable<TEntity> GetIQueryable();
     }
 }
