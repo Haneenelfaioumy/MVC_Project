@@ -30,6 +30,7 @@ namespace Demo.Presentation.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
+        //[ValidateAntiForgeryToken] // Action Filter
         public IActionResult Create(CreatedDepartmentDto departmentDto)
         {
             if (ModelState.IsValid) //Server Side Validation
