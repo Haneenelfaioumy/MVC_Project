@@ -17,19 +17,24 @@ namespace Demo.BusinessLogic.Services.Classes
         // Get All Employees
         public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false)
         {
-            //var Employees = _employeeRepository.GetAll(WithTracking);
-            var Employees = _employeeRepository.GetAll(E => new EmployeeDto()
-            {
-                Id = E.Id,
-                Name = E.Name,
-                Salary = E.Salary,
-                Age = E.Age
-            }).Where(E => E.Age > 25);
+            #region IEnumerable VS IQueryable
+
+            //var Employees = _employeeRepository.GetAll(E => new EmployeeDto()
+            //{
+            //    Id = E.Id,
+            //    Name = E.Name,
+            //    Salary = E.Salary,
+            //    Age = E.Age
+            //}).Where(E => E.Age > 25);
+            //return Employees;
+
+            #endregion
+
+            var Employees = _employeeRepository.GetAll(WithTracking);
             // Src = Employee
             // Dest = EmployeeDto
-            //var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(Employees);
-            //return employeesDto;
-            return Employees;
+            var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(Employees);
+            return employeesDto;
         }
 
         // Get Employee By Id

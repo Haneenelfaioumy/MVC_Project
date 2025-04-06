@@ -1,10 +1,8 @@
-﻿using Demo.BusinessLogic.DataTransferObjects.DepartmentDtos;
-using Demo.BusinessLogic.DataTransferObjects.EmployeeDtos;
+﻿using Demo.BusinessLogic.DataTransferObjects.EmployeeDtos;
 using Demo.BusinessLogic.Services.Classes;
 using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Models.EmployeeModel;
 using Demo.DataAccess.Models.Shared.Enums;
-using Demo.Presentation.ViwModels.DepartmentViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Presentation.Controllers

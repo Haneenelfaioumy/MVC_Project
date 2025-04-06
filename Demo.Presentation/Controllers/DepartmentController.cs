@@ -1,7 +1,7 @@
 ﻿using Demo.BusinessLogic.DataTransferObjects.DepartmentDtos;
 using Demo.BusinessLogic.Services;
 using Demo.BusinessLogic.Services.Interfaces;
-using Demo.Presentation.ViwModels.DepartmentViewModel;
+using Demo.Presentation.ViewModels.DepartmentViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Presentation.Controllers
@@ -31,12 +31,19 @@ namespace Demo.Presentation.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken] // Action Filter
-        public IActionResult Create(CreatedDepartmentDto departmentDto)
+        public IActionResult Create(DepartmentViewModel departmentViewModel)
         {
             if (ModelState.IsValid) //Server Side Validation
             {
                 try
                 {
+                    var departmentDto = new CreatedDepartmentDto()
+                    {
+                        Name = departmentViewModel.Name,
+                        Code = departmentViewModel.Code,
+                        DateOfCreation = departmentViewModel.DateOfCreation,
+                        Description = departmentViewModel.Description,
+                    };
                    int Result = _departmentService.AddDepartment(departmentDto);
                     if (Result > 0)
                         return RedirectToAction(nameof(Index));
@@ -60,7 +67,7 @@ namespace Demo.Presentation.Controllers
                     }
                 }
             }
-            return View(departmentDto);
+            return View(departmentViewModel);
         }
 
         #endregion
@@ -86,7 +93,7 @@ namespace Demo.Presentation.Controllers
             if (!id.HasValue) return BadRequest();
             var department = _departmentService.GetDepartmentById(id.Value);
             if (department is null) return NotFound();
-            var departmentViewModel = new DepartmentEditViewModel()
+            var departmentViewModel = new DepartmentViewModel()
             {
                 Name = department.Name ,
                 Code = department.Code ,
@@ -97,7 +104,7 @@ namespace Demo.Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromRoute]int id , DepartmentEditViewModel viewModel)
+        public IActionResult Edit([FromRoute]int id , DepartmentViewModel departmentViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -106,10 +113,10 @@ namespace Demo.Presentation.Controllers
                     var UpdatedDepartment = new UpdatedDepartmentDto()
                     {
                         Id = id ,
-                        Name = viewModel.Name,
-                        Code = viewModel.Code,
-                        Description = viewModel.Description,
-                        DateOfCreation = viewModel.DateOfCreation
+                        Name = departmentViewModel.Name,
+                        Code = departmentViewModel.Code,
+                        Description = departmentViewModel.Description,
+                        DateOfCreation = departmentViewModel.DateOfCreation
                     };
                     int Result = _departmentService.UpdateDepartment(UpdatedDepartment);
                     if (Result > 0)
@@ -136,7 +143,7 @@ namespace Demo.Presentation.Controllers
                 }
 
             }
-            return View(viewModel);
+            return View(departmentViewModel);
         }
 
         #endregion
