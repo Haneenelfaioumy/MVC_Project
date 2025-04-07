@@ -10,6 +10,7 @@ namespace Demo.DataAccess.Models.EmployeeModel
     {
         FullTime = 1,
         PartTime =2 ,
+        Hybrid = 3 ,
         Remote
     }
 }

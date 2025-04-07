@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Demo.DataAccess.Models.EmployeeModel;
+﻿using Demo.DataAccess.Models.EmployeeModel;
 using Demo.DataAccess.Models.Shared.Enums;
+using System.ComponentModel.DataAnnotations;
 
-namespace Demo.BusinessLogic.DataTransferObjects.EmployeeDtos
+namespace Demo.Presentation.ViewModels.EmployeeViewModel
 {
-    public class CreatedEmployeeDto
+    public class EmployeeViewModel
     {
         [Required(ErrorMessage = "Name Can't Be Null")]
         [MaxLength(50, ErrorMessage = "Max length should be 50 character")]
@@ -41,6 +36,8 @@ namespace Demo.BusinessLogic.DataTransferObjects.EmployeeDtos
         public EmployeeType EmployeeType { get; set; }
         public int CreatedBy { get; set; }
         public int LastModifiedBy { get; set; }
+
+        [Display(Name = "Department")]
         public int? DepartmentId { get; set; }
     }
 }
