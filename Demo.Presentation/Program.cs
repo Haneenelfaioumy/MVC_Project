@@ -29,12 +29,12 @@ namespace Demo.Presentation
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
                 options.UseLazyLoadingProxies();
 
-            } , ServiceLifetime.Scoped); // 2. Register To Service In DI Container
+            }); // 2. Register To Service In DI Container
 
             //builder.Services.AddScoped<DepartmentRepository>();
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-            //builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
-            builder.Services.AddTransient<IDepartmentServices, DepartmentServices>();
+            builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
+            //builder.Services.AddTransient<IDepartmentServices, DepartmentServices>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeServices, EmployeeServices>();
             //builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);

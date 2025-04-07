@@ -53,9 +53,17 @@ namespace Demo.DataAccess.Repositories.Classes
 
         public IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> selector)
         {
-            return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true)
-                             .Select(selector).ToList();
+            return _dbContext.Set<TEntity>()
+                             .Where(E => E.IsDeleted != true)
+                             .Select(selector)
+                             .ToList();
         }
 
+        IEnumerable<TEntity> IGenericRepository<TEntity>.GetAll(Expression<Func<TEntity, bool>> Predicate)
+        {
+            return _dbContext.Set<TEntity>()
+                             .Where(Predicate)
+                             .ToList();
+        }
     }
 }
