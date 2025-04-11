@@ -32,7 +32,7 @@
 </div>
 <div class="form-group mb-3 col-6">
     <label class="form-label" asp-for="HiringDate"></label>
-    <input asp-for="HiringDate" class="form-control" />
+    <input type="date" asp-for="HiringDate" class="form-control" />
     <span asp-validation-for="HiringDate" class="text-danger"></span>
 </div>
 <div class="form-group mb-3 col-6">
@@ -43,7 +43,7 @@
 
 <div class="form-group mb-3 col-6">
     <label class="form-label" asp-for="DepartmentId"></label>
-    <select asp-for="EmployeeType" asp-items="Departments" class="form-control">
+    <select asp-for="DepartmentId" asp-items="Departments" class="form-control">
         <option value="@null">Choose Department</option>
     </select>
     <span asp-validation-for="DepartmentId" class="text-danger"></span>
@@ -52,7 +52,7 @@
 <div class="form-group mb-3 col-6">
     <label class="form-label" asp-for="EmployeeType"></label>
     <select asp-for="EmployeeType" asp-items="Html.GetEnumSelectList<EmployeeType>()" class="form-control">
-        <option value="">Select Employee Type</option>
+        <option value="@null">Select Employee Type</option>
     </select>
     <span asp-validation-for="EmployeeType" class="text-danger"></span>
 </div>
