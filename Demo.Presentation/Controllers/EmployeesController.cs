@@ -102,7 +102,7 @@ namespace Demo.Presentation.Controllers
                 IsActive = employee.IsActive,
                 Gender = Enum.Parse<Gender>(employee.Gender),
                 EmployeeType = Enum.Parse<EmployeeType>(employee.EmployeeType),
-                DepartmentId = employee.DepartmentId
+                DepartmentId = employee.DepartmentId,
             };
             return View(employeeViewModel);
         }
@@ -127,7 +127,7 @@ namespace Demo.Presentation.Controllers
                     IsActive = employeeViewModel.IsActive,
                     Gender = employeeViewModel.Gender,
                     EmployeeType = employeeViewModel.EmployeeType,
-                    DepartmentId = employeeViewModel.DepartmentId
+                    DepartmentId = employeeViewModel.DepartmentId,
                 };
                 var Result = _employeeServices.UpdateEmployee(employeeDto);
                 if (Result > 0)
