@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Demo.DataAccess.Models.EmployeeModel;
 using Demo.DataAccess.Models.Shared.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace Demo.BusinessLogic.DataTransferObjects.EmployeeDtos
 {

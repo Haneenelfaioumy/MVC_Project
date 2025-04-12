@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Demo.DataAccess.Models.EmployeeModel;
 using Demo.DataAccess.Models.Shared.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace Demo.BusinessLogic.DataTransferObjects.EmployeeDtos
 {
@@ -27,5 +28,6 @@ namespace Demo.BusinessLogic.DataTransferObjects.EmployeeDtos
         public DateTime LastModifiedOn { get; set; }
         public int? DepartmentId { get; set; }
         public string? Department { get; set; }
+        public string? Image{ get; set; }
     }
 }
