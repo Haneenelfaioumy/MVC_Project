@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Demo.BusinessLogic.DataTransferObjects.EmployeeDtos;
 using Demo.BusinessLogic.Factories;
+using Demo.BusinessLogic.Services.AttachementService;
 using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Models.EmployeeModel;
 using Demo.DataAccess.Repositories.Interfaces;
 
 namespace Demo.BusinessLogic.Services.Classes
 {
-    public class EmployeeServices(IUnitOfWork _unitOfWork , IMapper _mapper) : IEmployeeServices
+    public class EmployeeServices(IUnitOfWork _unitOfWork , IMapper _mapper , 
+                                  IAttachmentService attachmentService) : IEmployeeServices
     {
         // Get All Employees
         public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
