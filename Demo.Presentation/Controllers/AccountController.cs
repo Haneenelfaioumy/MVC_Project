@@ -71,7 +71,12 @@ namespace Demo.Presentation.Controllers
 
         #region Sign Out
 
-
+        [HttpGet]
+        public new IActionResult SignOut()
+        {
+            _signInManager.SignOutAsync().GetAwaiter().GetResult();
+            return RedirectToAction(nameof(Login));
+        }
 
         #endregion    
     }
