@@ -39,6 +39,7 @@ namespace Demo.Presentation.ViewModels.EmployeeViewModel
 
         [Display(Name = "Department")]
         public int? DepartmentId { get; set; }
-        public IFormFile? Image { get; set; }
+        public IFormFile? Image { get; set; }    // For new image upload
+        public string? ExistingImage { get; set; } // To hold the current image path
     }
 }

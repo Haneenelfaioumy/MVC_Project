@@ -1,3 +1,4 @@
+using System.Net;
 using Demo.BusinessLogic.Profiles;
 using Demo.BusinessLogic.Services.AttachementService;
 using Demo.BusinessLogic.Services.Classes;
@@ -6,6 +7,7 @@ using Demo.DataAccess.Data.DbContexts;
 using Demo.DataAccess.Models.IdentityModel;
 using Demo.DataAccess.Repositories.Classes;
 using Demo.DataAccess.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -44,7 +46,16 @@ namespace Demo.Presentation
             builder.Services.AddScoped<IUnitOfWork , UnitOfWork>();
             builder.Services.AddScoped<IAttachmentService, AttachementService>();
             builder.Services.AddIdentity<ApplicationUser , IdentityRole>()
-                            .AddEntityFrameworkStores<ApplicationDbContext>();
+                            .AddEntityFrameworkStores<ApplicationDbContext>()
+                            .AddDefaultTokenProviders();
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                            .AddCookie(options =>
+                            {
+                                options.LoginPath = "/Account/Login";
+                                options.AccessDeniedPath = "/Home/Error";
+                                options.LogoutPath = "/Account/Login";
+                            });
 
             #endregion
 
@@ -64,10 +75,14 @@ namespace Demo.Presentation
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Account}/{action=Register}/{id?}");
+                //pattern: "{controller=Home}/{action=Index}/{id?}");
 
             #endregion
 

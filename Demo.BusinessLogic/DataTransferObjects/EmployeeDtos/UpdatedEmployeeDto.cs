@@ -46,5 +46,7 @@ namespace Demo.BusinessLogic.DataTransferObjects.EmployeeDtos
         public int CreatedBy { get; set; }
         public int LastModifiedBy { get; set; }
         public int? DepartmentId { get; set; }
+        public IFormFile? Image { get; set; }
+        public string ExistingImage { get; set; }
     }
 }
