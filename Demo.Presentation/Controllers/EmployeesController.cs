@@ -103,6 +103,7 @@ namespace Demo.Presentation.Controllers
                 Gender = Enum.Parse<Gender>(employee.Gender),
                 EmployeeType = Enum.Parse<EmployeeType>(employee.EmployeeType),
                 DepartmentId = employee.DepartmentId,
+                ExistingImage = employee.Image
             };
             return View(employeeViewModel);
         }
@@ -128,6 +129,8 @@ namespace Demo.Presentation.Controllers
                     Gender = employeeViewModel.Gender,
                     EmployeeType = employeeViewModel.EmployeeType,
                     DepartmentId = employeeViewModel.DepartmentId,
+                    Image = employeeViewModel.Image,
+                    ExistingImage = employeeViewModel.ExistingImage
                 };
                 var Result = _employeeServices.UpdateEmployee(employeeDto);
                 if (Result > 0)
