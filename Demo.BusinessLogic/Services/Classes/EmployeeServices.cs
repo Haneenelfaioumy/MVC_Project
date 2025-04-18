@@ -68,6 +68,7 @@ namespace Demo.BusinessLogic.Services.Classes
         // Update Employee
         public int UpdateEmployee(UpdatedEmployeeDto employeeDto)
         {
+            #region Another Solution
             //if (employeeDto.Image != null)
             //{
             //    var filePath = Path.Combine(
@@ -81,9 +82,41 @@ namespace Demo.BusinessLogic.Services.Classes
             //employee.ImageName = _attachmentService.Upload(employeeDto.Image, "Images");
             //_unitOfWork.EmployeeRepository.Update(employee);
 
-            //return _unitOfWork.SaveChanges();
-            _unitOfWork.EmployeeRepository.Update(_mapper.Map<UpdatedEmployeeDto, Employee>(employeeDto));
+            //return _unitOfWork.SaveChanges(); 
+            #endregion
+
+            // Get the existing employee from DB
+            var existingEmployee = _unitOfWork.EmployeeRepository.GetById(employeeDto.Id);
+            if (existingEmployee == null)
+                throw new ArgumentException("Employee not found.");
+
+            // Handle image replacement
+            if (employeeDto.Image != null && !string.IsNullOrEmpty(employeeDto.ExistingImage))
+            {
+                var existingFilePath = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot\\Files\\Images",
+                    employeeDto.ExistingImage
+                );
+
+                _attachmentService.Delete(existingFilePath);
+            }
+
+            // Upload new image (if any)
+            if (employeeDto.Image != null)
+            {
+                var uploadedFileName = _attachmentService.Upload(employeeDto.Image, "Images");
+                existingEmployee.ImageName = uploadedFileName;
+            }
+
+            // Map updated fields (except image name, already handled)
+            _mapper.Map(employeeDto, existingEmployee);
+
+            _unitOfWork.EmployeeRepository.Update(existingEmployee);
             return _unitOfWork.SaveChanges();
+
+            //_unitOfWork.EmployeeRepository.Update(_mapper.Map<UpdatedEmployeeDto, Employee>(employeeDto));
+            //return _unitOfWork.SaveChanges();
         }
 
         // Delete Employee

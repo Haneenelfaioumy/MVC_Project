@@ -1,17 +1,17 @@
-﻿@model UserViewModel
+﻿@model RoleViewModel
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="my-5 w-75">User @Model.FName @Model.LName Details</h1>
+<h1 class="my-5 w-75">@Model.RoleName Details</h1>
 
 
 <div class="row justify-content-center align-content-center mt-3">
-    <form method="get" asp-controller="Users" asp-action="Details" class="row col-12">
+    <form method="get" asp-controller="Roles" asp-action="Details" class="row col-12">
         <div asp-validation-summary="ModelOnly"></div>
 
-        <partial name="PartialViews/DetailsDeletePartialView" />
+        <partial name="PartialViews/RolesPartialView" />
 
         <div class="mt-4">
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>

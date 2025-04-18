@@ -75,6 +75,7 @@ namespace Demo.Presentation.Controllers
             if (user is null) return NotFound();
             var userViewModel = new UserViewModel()
             {
+                Id = user.Id,
                 FName = user.FirstName,
                 LName = user.LastName,
                 Email = user.Email,
@@ -85,9 +86,9 @@ namespace Demo.Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromRoute] string id, UserViewModel userViewModel)
+        public IActionResult Edit([FromForm] string id, UserViewModel userViewModel)
         {
-            if (id is null) return BadRequest();
+            if (string.IsNullOrEmpty(id) || id is null) return BadRequest();
             if (!ModelState.IsValid) return View(userViewModel);
             try
             {
