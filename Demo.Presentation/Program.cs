@@ -45,17 +45,25 @@ namespace Demo.Presentation
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
             builder.Services.AddScoped<IUnitOfWork , UnitOfWork>();
             builder.Services.AddScoped<IAttachmentService, AttachementService>();
-            builder.Services.AddIdentity<ApplicationUser , IdentityRole>()
-                            .AddEntityFrameworkStores<ApplicationDbContext>()
-                            .AddDefaultTokenProviders();
+            builder.Services.AddIdentity<ApplicationUser , IdentityRole>(Options =>
+            {
+                Options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<ApplicationDbContext>()
+              .AddDefaultTokenProviders();
 
-            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                            .AddCookie(options =>
-                            {
-                                options.LoginPath = "/Account/Login";
-                                options.AccessDeniedPath = "/Home/Error";
-                                options.LogoutPath = "/Account/Login";
-                            });
+            //builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //                .AddCookie(options =>
+            //                {
+            //                    options.LoginPath = "/Account/Login";
+            //                    options.AccessDeniedPath = "/Home/Error";
+            //                    options.LogoutPath = "/Account/Login";
+            //                });
+
+
+            //builder.Services.ConfigureApplicationCookie(Options => Options.LoginPath = "/Account/Login");
+            
+            //builder.Services.AddAuthentication("Cookie")
+            //                .AddCookie(Options => Options.LoginPath = "/Account/Login");
 
             #endregion
 
