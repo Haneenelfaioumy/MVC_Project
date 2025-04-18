@@ -1,0 +1,22 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="my-5 m-auto">Are You Sure You Want To Delete @Model.FName @Model.LName ?</h1>
+
+<div class="row justify-content-center align-content-center mt-3">
+    <form method="post" asp-controller="Users" asp-action="Edit" class="row col-8">
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <partial name="PartialViews/DetailsDeletePartialView" />
+
+        <div class="mt-4">
+            <form method="post" asp-controller="Users" asp-action="ConfirmDelete" asp-route-id="@Model.Id">
+                <input type="submit" class="btn btn-danger" value="Delete" />
+                <a asp-action="Index" class="btn btn-outline-dark">Back To list</a>
+            </form>
+        </div>
+    </form>
+</div>
