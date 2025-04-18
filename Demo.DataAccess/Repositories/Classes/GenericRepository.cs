@@ -26,6 +26,20 @@ namespace Demo.DataAccess.Repositories.Classes
                 return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true).AsNoTracking().ToList();
                 //return _dbContext.Set<TEntity>().AsNoTracking().ToList();
         }
+        public IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> selector)
+        {
+            return _dbContext.Set<TEntity>()
+                             .Where(E => E.IsDeleted != true)
+                             .Select(selector)
+                             .ToList();
+        }
+
+        IEnumerable<TEntity> IGenericRepository<TEntity>.GetAll(Expression<Func<TEntity, bool>> Predicate)
+        {
+            return _dbContext.Set<TEntity>()
+                             .Where(Predicate)
+                             .ToList();
+        }
 
         // Get By Id
         public TEntity? GetById(int id) => _dbContext.Set<TEntity>().Find(id);
@@ -46,21 +60,6 @@ namespace Demo.DataAccess.Repositories.Classes
         public void Add(TEntity entity)
         {
             _dbContext.Set<TEntity>().Add(entity);
-        }
-
-        public IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> selector)
-        {
-            return _dbContext.Set<TEntity>()
-                             .Where(E => E.IsDeleted != true)
-                             .Select(selector)
-                             .ToList();
-        }
-
-        IEnumerable<TEntity> IGenericRepository<TEntity>.GetAll(Expression<Func<TEntity, bool>> Predicate)
-        {
-            return _dbContext.Set<TEntity>()
-                             .Where(Predicate)
-                             .ToList();
         }
     }
 }

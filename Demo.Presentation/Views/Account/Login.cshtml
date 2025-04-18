@@ -19,17 +19,19 @@
             <div class="wthree-text">
                 <label class="anim">
                     <input asp-for="RememberMe" class="checkbox" required>
-                    <span>Keep Me Signed In [Remember Me]</span>
+                    <span> Keep Me Signed In [Remember Me?]</span>
                 </label>
                 <div class="clear"> </div>
             </div>
             <input type="submit" value="SIGNIN">
         </form>
-        <p>Don't have an Account? <a asp-action="Register"> Register Now!</a></p>
+        <p>Don't have an Account? <a asp-action="Register"> Sign Up Now!</a></p>
+        @* <p>Don't have an Account? <a asp-action="Register"> Register Now!</a></p> *@
+        <p><a asp-action="ForgetPassword"> Forget Password!</a></p>
     </div>
 </div>
 
-@section Validation {
+@* @section Validation {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-}
+} *@
