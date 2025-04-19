@@ -7,6 +7,8 @@ using Demo.DataAccess.Data.DbContexts;
 using Demo.DataAccess.Models.IdentityModel;
 using Demo.DataAccess.Repositories.Classes;
 using Demo.DataAccess.Repositories.Interfaces;
+using Demo.Presentation.Helpers;
+using Demo.Presentation.Settings;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -51,19 +53,13 @@ namespace Demo.Presentation
             }).AddEntityFrameworkStores<ApplicationDbContext>()
               .AddDefaultTokenProviders();
 
-            //builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //                .AddCookie(options =>
-            //                {
-            //                    options.LoginPath = "/Account/Login";
-            //                    options.AccessDeniedPath = "/Home/Error";
-            //                    options.LogoutPath = "/Account/Login";
-            //                });
-
-
             //builder.Services.ConfigureApplicationCookie(Options => Options.LoginPath = "/Account/Login");
-            
+
             //builder.Services.AddAuthentication("Cookie")
             //                .AddCookie(Options => Options.LoginPath = "/Account/Login");
+
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+            builder.Services.AddTransient<IMailService, MailService>();
 
             #endregion
 

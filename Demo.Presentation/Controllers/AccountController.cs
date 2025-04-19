@@ -1,4 +1,5 @@
 ﻿using Demo.DataAccess.Models.IdentityModel;
+using Demo.Presentation.Helpers;
 using Demo.Presentation.Utilities;
 using Demo.Presentation.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -7,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Demo.Presentation.Controllers
 {
     public class AccountController(UserManager<ApplicationUser> _userManager ,
-                                   SignInManager<ApplicationUser> _signInManager) : Controller
+                                   SignInManager<ApplicationUser> _signInManager ,
+                                   IMailService _mailService) : Controller
     {
         #region Register [SignUP]
 
@@ -96,7 +98,7 @@ namespace Demo.Presentation.Controllers
                 {
                     var Token = _userManager.GeneratePasswordResetTokenAsync(User).Result;
                     var ResetPasswordLink = Url.Action(
-                                                      "ResetPassword",
+                                                      nameof(ResetPassword),
                                                       "Account",
                                                       new { email = viewModel.Email, Token },
                                                       Request.Scheme
@@ -108,7 +110,8 @@ namespace Demo.Presentation.Controllers
                         Body = ResetPasswordLink // TODO
                     };
                     // Send Email
-                    EmailSettings.SendEmail(email);
+                    //EmailSettings.SendEmail(email);
+                    _mailService.Send(email);
                     return RedirectToAction(nameof(CheckYourInbox));
                 }
             }
