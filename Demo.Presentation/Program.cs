@@ -10,6 +10,7 @@ using Demo.DataAccess.Repositories.Interfaces;
 using Demo.Presentation.Helpers;
 using Demo.Presentation.Settings;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -62,6 +63,16 @@ namespace Demo.Presentation
             builder.Services.Configure<SMSSettings>(builder.Configuration.GetSection("Twilio"));
             builder.Services.AddTransient<IMailService, MailService>();
             builder.Services.AddTransient<ISMSService, SMSService>();
+            builder.Services.AddAuthentication(O =>
+            {
+                O.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
+                O.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            }).AddGoogle(O =>
+            {
+                IConfiguration GoogleAuthSection = builder.Configuration.GetSection("Authentication:Google");
+                O.ClientId = GoogleAuthSection["ClientId"];
+                O.ClientSecret = GoogleAuthSection["ClientSecret"];
+            });
 
             #endregion
 
