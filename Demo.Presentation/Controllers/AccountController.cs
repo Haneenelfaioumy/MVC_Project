@@ -1,13 +1,18 @@
 ﻿using Demo.DataAccess.Models.IdentityModel;
+using Demo.Presentation.Helpers;
 using Demo.Presentation.Utilities;
 using Demo.Presentation.ViewModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Presentation.Controllers
 {
     public class AccountController(UserManager<ApplicationUser> _userManager ,
-                                   SignInManager<ApplicationUser> _signInManager) : Controller
+                                   SignInManager<ApplicationUser> _signInManager ,
+                                   IMailService _mailService ,
+                                   ISMSService _smsService) : Controller
     {
         #region Register [SignUP]
 
@@ -68,6 +73,28 @@ namespace Demo.Presentation.Controllers
             return View(viewModel);
         }
 
+        public IActionResult GoogleLogin()
+        {
+            var prop = new AuthenticationProperties
+            {
+                RedirectUri = Url.Action("GoogleResponse")
+            };
+            return Challenge(prop , GoogleDefaults.AuthenticationScheme);
+        }
+
+        public async Task<IActionResult> GoogleResponse()
+        {
+            var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+            var claims = result.Principal.Identities.FirstOrDefault().Claims.Select(claim => new
+            {
+                claim.Issuer,
+                claim.OriginalIssuer,
+                claim.Type,
+                claim.Value
+            });
+            return RedirectToAction("Index" , "Home");
+        }
+
         #endregion
 
         #region Sign Out
@@ -96,7 +123,7 @@ namespace Demo.Presentation.Controllers
                 {
                     var Token = _userManager.GeneratePasswordResetTokenAsync(User).Result;
                     var ResetPasswordLink = Url.Action(
-                                                      "ResetPassword",
+                                                      nameof(ResetPassword),
                                                       "Account",
                                                       new { email = viewModel.Email, Token },
                                                       Request.Scheme
@@ -108,13 +135,43 @@ namespace Demo.Presentation.Controllers
                         Body = ResetPasswordLink // TODO
                     };
                     // Send Email
-                    EmailSettings.SendEmail(email);
+                    //EmailSettings.SendEmail(email);
+                    _mailService.Send(email);
                     return RedirectToAction(nameof(CheckYourInbox));
                 }
             }
             ModelState.AddModelError(string.Empty, "Invalid Operation");
             return View(nameof(ForgetPassword), viewModel);
         }
+
+        [HttpPost]
+        public IActionResult SendResetPasswordLinkSMS(ForgetPasswordViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var User = _userManager.FindByEmailAsync(viewModel.Email).Result;
+                if (User is not null)
+                {
+                    var Token = _userManager.GeneratePasswordResetTokenAsync(User).Result;
+                    var ResetPasswordLink = Url.Action(
+                                                      nameof(ResetPassword),
+                                                      "Account",
+                                                      new { email = viewModel.Email, Token },
+                                                      Request.Scheme
+                                                      );
+                    var sms = new SMSMessage()
+                    {
+                        Body = ResetPasswordLink,
+                        PhoneNumber = User.PhoneNumber
+                    };
+                    _smsService.SendSMS(sms);
+                    return Ok("Check Your SMS Messages");
+                }
+            }
+            ModelState.AddModelError(string.Empty, "Invalid Operation");
+            return View(nameof(ForgetPassword), viewModel);
+        }
+
 
         [HttpGet]
         public IActionResult CheckYourInbox() => View();
