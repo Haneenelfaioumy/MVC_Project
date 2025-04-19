@@ -59,7 +59,9 @@ namespace Demo.Presentation
             //                .AddCookie(Options => Options.LoginPath = "/Account/Login");
 
             builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+            builder.Services.Configure<SMSSettings>(builder.Configuration.GetSection("Twilio"));
             builder.Services.AddTransient<IMailService, MailService>();
+            builder.Services.AddTransient<ISMSService, SMSService>();
 
             #endregion
 

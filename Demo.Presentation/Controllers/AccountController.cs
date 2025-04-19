@@ -9,7 +9,8 @@ namespace Demo.Presentation.Controllers
 {
     public class AccountController(UserManager<ApplicationUser> _userManager ,
                                    SignInManager<ApplicationUser> _signInManager ,
-                                   IMailService _mailService) : Controller
+                                   IMailService _mailService ,
+                                   ISMSService _smsService) : Controller
     {
         #region Register [SignUP]
 
@@ -118,6 +119,35 @@ namespace Demo.Presentation.Controllers
             ModelState.AddModelError(string.Empty, "Invalid Operation");
             return View(nameof(ForgetPassword), viewModel);
         }
+
+        [HttpPost]
+        public IActionResult SendResetPasswordLinkSMS(ForgetPasswordViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var User = _userManager.FindByEmailAsync(viewModel.Email).Result;
+                if (User is not null)
+                {
+                    var Token = _userManager.GeneratePasswordResetTokenAsync(User).Result;
+                    var ResetPasswordLink = Url.Action(
+                                                      nameof(ResetPassword),
+                                                      "Account",
+                                                      new { email = viewModel.Email, Token },
+                                                      Request.Scheme
+                                                      );
+                    var sms = new SMSMessage()
+                    {
+                        Body = ResetPasswordLink,
+                        PhoneNumber = User.PhoneNumber
+                    };
+                    _smsService.SendSMS(sms);
+                    return Ok("Check Your SMS Messages");
+                }
+            }
+            ModelState.AddModelError(string.Empty, "Invalid Operation");
+            return View(nameof(ForgetPassword), viewModel);
+        }
+
 
         [HttpGet]
         public IActionResult CheckYourInbox() => View();
